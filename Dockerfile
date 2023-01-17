@@ -1,4 +1,8 @@
-FROM tomcat:latest
-RUN cp -R  /usr/local/tomcat/webapps.dist/*  /usr/local/tomcat/webapps
-COPY ./*.war /usr/local/tomcat/webapps
+# Pull tomcat latest image from dockerhub
+From tomcat
 
+# Maintainer
+MAINTAINER "sobo"
+
+# copy war file on to container
+COPY ./webapp.war /usr/local/tomcat/webapps

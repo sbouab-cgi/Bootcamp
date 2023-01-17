@@ -1,0 +1,31 @@
+---
+- hosts: all # comes from the hosts file
+  become: true # become sudo
+  vars:
+    ansible_sudo_pass: “{{ ansible_ssh_pass }}” # for sudo
+	
+  tasks:
+    - name: copy war from Jenkins to target host
+      copy:
+        src: /var/lib/jenkins/workspace/Soufiane-Deploy-on-Container-using-Ansible/webapp/target/webapp.war
+        dest: /opt/docker/Soufiane
+	      
+    - name: stop current container
+      command: docker stop Soufiane-devops-container
+      ignore_errors: yes # in case container doesn’t exist
+	    
+    - name: remove stopped container
+      command: docker rm Soufiane-devops-container
+      ignore_errors: yes # in case container doesn’t exist
+	    
+    - name: remove docker images 
+      command: docker rmi Soufiane-devops-image:latest
+      ignore_errors: yes # in case image does not exist
+	    
+    - name: create docker image using war file
+	    command: docker build -t Soufiane-devops-image:latest .
+      	args:
+        chdir: /opt/docker/Soufiane
+	      
+    - name: run container from docker image
+	    command: docker run -d --name Soufiane-devops-container -p 8081:8080 -devops-image:latest
