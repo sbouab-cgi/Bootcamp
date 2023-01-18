@@ -2,12 +2,10 @@
 - hosts: all # comes from the hosts file
   become: true # become sudo
   gather_facts: false
-  #vars:
-  #  ansible_sudo_pass: “{{ ansible_ssh_pass }}” # for sudo
+  vars:
+   ansible_become_pass: “{{ ansible_ssh_pass }}” # for sudo
 
   tasks:
-    - name: debug
-      debug: msg="{{ ansible_ssh_pass }}"
     - name: copy war from Jenkins to target host
       copy:
         src: /var/lib/jenkins/workspace/Soufiane-Deploy-on-Container-using-Ansible/webapp/target/webapp.war
