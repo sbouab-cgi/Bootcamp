@@ -1,9 +1,9 @@
 ---
 - hosts: all # comes from the hosts file
-  become: true # become sudo
-  gather_facts: false
-  vars:
-   ansible_become_pass: “{{ ansible_ssh_pass }}” # for sudo
+  #become: true # become sudo
+  #gather_facts: false
+  #vars:
+  #  ansible_become_pass: “{{ ansible_ssh_pass }}” # for sudo
 
   tasks:
     - name: copy war from Jenkins to target host
