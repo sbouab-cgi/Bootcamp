@@ -4,6 +4,10 @@
   gather_facts: false
 
   tasks:
+    - name: set sudo password
+      set_fact:
+        ansible_sudo_pass: "{{ ansible_ssh_pass }}"
+
     - name: copy war from Jenkins to target host
       copy:
         src: /var/lib/jenkins/workspace/Soufiane-Deploy-on-Container-using-Ansible/webapp/target/webapp.war
