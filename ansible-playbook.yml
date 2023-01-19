@@ -3,7 +3,7 @@
   become: true # become sudo
   gather_facts: false
   vars:
-    ansible_sudo_pass: “{{ ansible_ssh_pass }}” # for sudo
+    ansible_become_pass: “{{ ansible_ssh_pass }}” # for sudo
 
   tasks:
     - name: copy war from Jenkins to target host
